@@ -76,24 +76,24 @@ END OF COMMENTS, START OF CONFIGURATION FOR RUNING MC_GEN
 *******************************************************************************
 ===============================  <--- Next lines are active input, not comments
 Simulation of gamma + p --> p pbar p,   MECHANISM 5 <==  i = 1,2...,6
-5000	!Number of events to generate
-5000	!"Good" events to generate;  (stops at whichever number it hits first)
-8.00 	!Mininum momentum of incident particle beam in GeV/c
-11.60	!Maximum momentum of incident particle beam in GeV/c
+TRIGGER	!Number of events to generate
+TRIGGER	!"Good" events to generate;  (stops at whichever number it hits first)
+E_MIN 	!Mininum momentum of incident particle beam in GeV/c
+E_MAX	!Maximum momentum of incident particle beam in GeV/c
 3    	!"Rule" for generating photons; 3=read external GlueX photon flux file
-/home/haoli/Physics_Analysis/flux_REST/ascii_files/flux_40856_42559.ascii !file containing the beam flux distribution (if used)
+FLUX_FILE !file containing the beam flux distribution (if used)
 1	!Number of generated events which will be printed to the terminal 
 0	!Enable various programming hacks for testing (see code)(1=yes, 0=no)
 1	!Enable GlueX (ASCII input to HDDM) output data written (1=yes, 0=no)
 0	!Flag to select whether to call local event analyzer (1=yes, 0=no) 
 ./      !/raid1/schumach/gluexmc/ !output name prefix
-5000   !Number of events in each output file
-.050	!instrumental delta_p/p spread in momentum of generated particles
+TRIGGER   !Number of events in each output file
+.030	!instrumental delta_p/p spread in momentum of generated particles
 0.250	!Fermi momentum used in nuclear quasi-free calculations (GeV/c)
 2 	!{0,1,2} = {no,rectangular,cylindrical} target geometry
 2.0 2.0  51.0 79.0 !diameter, (dummy), Zmin, Zmax ; target size, all in cm
 0 0.2  	0.2   !{0,1} = {point vertex,diffuse vertex}, Xsigma, Ysigma ; all in cm
-2       !{0,1} = {Use new random number seed, pick up seed from previous run}
+3       !{0,1} = {Use new random number seed, pick up seed from previous run}
 1.000	!Reserved slot for future use
 ******************************************************************************
 INPUT PARAMETERS
