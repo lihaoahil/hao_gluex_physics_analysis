@@ -23,9 +23,9 @@ setenv RCDB_CONNECTION sqlite:////$WORKINGDIR/rcdb.sqlite
 setenv JANA_CALIB_URL "sqlite:///${PWD}/ccdb.sqlite"
 setenv JANA_CALIB_CONTEXT "variation=mc"
 
-echo "env:"
-env | grep JANA
-echo
+#echo "env:"
+#env | grep JANA
+#echo
 
 # make new directions
 mkdir -p $OUTPUTDIR/gen/
@@ -174,10 +174,12 @@ foreach item($myvar)
 end
 echo
 
-echo "all files have been transferred back to local output directory."
+echo "All found files have been transferred back to local output directory."
+echo
+echo "Simulation accomplished."
+echo
+echo "Prepare to exit."
 
-
-exit
 
 	
 
