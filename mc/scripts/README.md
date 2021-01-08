@@ -1,7 +1,6 @@
----
- # created by:  
- *Hao Li (Carnegie Mellon University)*
- *08-Jan-2020*                         
+### created by:  
+*Hao Li (Carnegie Mellon University)*
+*08-Jan-2020*                         
 ---
 
  # Usage: 
