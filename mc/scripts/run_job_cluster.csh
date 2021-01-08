@@ -4,18 +4,17 @@ hostname
 #------------- Check Parameters --------------
 echo "The job is running with         " $THREADS" threads on "$QUEUE" queue"
 echo "Working directory is in         " $WORKINGDIR
-echo "mc_gen's definition file is     " $DEF
-echo "translator is                   " $translator
 echo "Output directory is in          " $OUTPUTDIR
 echo "script directory is in          " $LOCALDIR
-echo "config file is"                   ${LOCALDIR}/${CONFIG}
+echo "config file is                  " ${LOCALDIR}/config/${CONFIG}
+echo "single sample size =                  " $SAMPLE_SIZE
 
 # set up environment
-#set up the environment
 cd $WORKINGDIR
-source /home/haoli/env/test.csh
-scp /home/gluex2/gluexdb/ccdb_2020_11_13.sqlite ./ccdb.sqlite
-scp /home/gluex2/gluexdb/rcdb_2020_11_13.sqlite ./rcdb.sqlite
+wxho "source $ENV_FILE:"
+source $ENV_FILE
+scp $CCDB_SQLITE ./ccdb.sqlite
+scp $RCDB_SQLITE ./rcdb.sqlite
 setenv SQLITE_CCDB ./ccdb.sqlite
 setenv CCDB_CONNECTION sqlite:////$WORKINGDIR/ccdb.sqlite
 setenv SQLITE_RCDB ./rcdb.sqlite
@@ -23,11 +22,7 @@ setenv RCDB_CONNECTION sqlite:////$WORKINGDIR/rcdb.sqlite
 setenv JANA_CALIB_URL "sqlite:///${PWD}/ccdb.sqlite"
 setenv JANA_CALIB_CONTEXT "variation=mc"
 
-#echo "env:"
-#env | grep JANA
-#echo
-
-# make new directions
+# make new folders
 mkdir -p $OUTPUTDIR/gen/
 mkdir -p $OUTPUTDIR/root/
 mkdir -p $OUTPUTDIR/rest/
@@ -39,8 +34,7 @@ mkdir -p $OUTPUTDIR/mcthrown_trees/
 # copy files in
 ################
 cd $WORKINGDIR
-cp ${OUTPUTDIR}/gen/def/$DEF input.def
-cp ${LOCALDIR}/run.mac .
+cp ${OUTPUTDIR}/gen/def/input.def .
 cp ${LOCALDIR}/control/control.in .
 cp ${LOCALDIR}/config/${CONFIG}  reaction.config 
 
@@ -51,7 +45,7 @@ ls -lah
 ###################
 # run the programs
 ###################
-touch log.txt
+touch timer.txt
 echo
 echo "----------------------------------------------------------------------------------------------" 
 echo "path of softwares in the following simulations:"
@@ -66,21 +60,26 @@ echo
 
 
 # run mc_gen and translator
-echo "--------------------------------------------" 
-echo "Running mc_gen"
-echo "--------------------------------------------"
+echo "--------------------------------------------" |& tee -a timer.txt
+echo "Running mc_gen"                               |& tee -a timer.txt
+echo "--------------------------------------------" |& tee -a timer.txt
 cd $WORKINGDIR
-mc_gen input.def |& tee -a log.txt
+mc_gen input.def 
 cp *.ascii input.ascii
-GEN2HDDM_new -r040856 input.ascii |& tee -a log.txt
+GEN2HDDM_new -r040856 input.ascii 
 echo "-----"
 ls -lahS
+
+# make run.mac
+rm -f run.mac
+echo "/run/beamOn $TRIGGER" >>! run.mac
+echo "exit" >>! run.mac
 
 # run simulation
 echo "--------------------------------------------" 
 echo "Running HDGeant4"
 echo "--------------------------------------------"
-hdgeant4 -t${THREADS} run.mac |& tee -a log.txt
+hdgeant4 -t${THREADS} run.mac 
 
 
 #smears the simulated data
@@ -88,7 +87,7 @@ if (-f hdgeant.hddm) then
 		echo "--------------------------------------------"
 		echo "Running mcsmear"
 		echo "--------------------------------------------"
-		mcsmear --nthreads=${THREADS} hdgeant.hddm -PTHREAD_TIMEOUT_FIRST_EVENT=300 -PTHREAD_TIMEOUT=300 |& tee -a log.txt 
+		mcsmear --nthreads=${THREADS} hdgeant.hddm -PTHREAD_TIMEOUT_FIRST_EVENT=300 -PTHREAD_TIMEOUT=300 
 		rm hdgeant.hddm
 	else
 		echo "--------------------------------------------"
@@ -103,7 +102,7 @@ if (-f hdgeant_smeared.hddm) then
 		echo "--------------------------------------------"
 		echo "Running hd_root"
 		echo "--------------------------------------------"
-		hd_root hdgeant_smeared.hddm --nthreads=${THREADS} -PPLUGINS=danarest,mcthrown_tree -PTHREAD_TIMEOUT_FIRST_EVENT=300 -PTHREAD_TIMEOUT=300 |& tee -a log.txt   #--nthreads=4
+		hd_root hdgeant_smeared.hddm --nthreads=${THREADS} -PPLUGINS=danarest,mcthrown_tree -PTHREAD_TIMEOUT_FIRST_EVENT=300 -PTHREAD_TIMEOUT=300    
 	else
 		echo "--------------------------------------------"
 		echo "hdgeant_smeared.hddm is not found."
@@ -115,7 +114,7 @@ if (-f dana_rest.hddm) then
 		echo "--------------------------------------------"
 		echo "Running hd_root --config=reaction.config "
 		echo "--------------------------------------------"
-		hd_root dana_rest.hddm --nthreads=${THREADS} --config=reaction.config  |& tee -a log.txt 
+		hd_root dana_rest.hddm --nthreads=${THREADS} --config=reaction.config   
 	else
 		echo "--------------------------------------------"
 		echo "dana_rest.hddm is not found."
