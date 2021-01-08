@@ -2,6 +2,9 @@
 *Hao Li (Carnegie Mellon University)*
 *08-Jan-2020*                         
 -----
+ # Environment
+ Need halld_sim (>=4.26), hdgeant4, halld_recon
+
  # Installation
  No need to compile anything. Just set up environment variable (for example in csh):
 ```sh
