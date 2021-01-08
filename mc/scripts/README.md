@@ -1,6 +1,5 @@
 ### created by:  
-*Hao Li (Carnegie Mellon University)*
-*08-Jan-2020*                         
+*Hao Li (Carnegie Mellon University, 08-Jan-2020)*
 -----
  # Environment
  Need halld_sim (>=4.26), hdgeant4, halld_recon
@@ -34,7 +33,7 @@ The run_job_cluster.csh will run through all simulation steps automatically.
 2. def need set certain keywords as placeholder; then copy it into $MC_LOCALDIR/def
 3. reaction.config contains reaction hypotheses used in the kinematic fitter. Do remember to set up a name for each reaction, otherwise the output skim trees won't get copied back properly. It should be saved into $MC_LOCALDIR/config
 
-# To-Do list
+# To-Do List
 
 - timer for steps
 - crash exit and re-submission (often happens during hdgeant)

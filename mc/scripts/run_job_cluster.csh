@@ -132,7 +132,7 @@ echo "Transferring files from compute nodes to server"
 echo "Writing files to output directory" ${OUTPUTDIR}
 
 #copy files and change their names to avoid override
-scp log.txt $OUTPUTDIR/logs/${Name}.txt
+scp timer.txt $OUTPUTDIR/logs/timer_${Name}.txt
 if (-f input.ascii) then
 		scp input.ascii $OUTPUTDIR/gen/thrown_${Name}.ascii
 		#scp pre.seed $/gen/pre_${Name}.seed

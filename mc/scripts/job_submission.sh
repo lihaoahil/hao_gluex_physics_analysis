@@ -23,7 +23,7 @@ RCDB_SQLITE=/home/gluex2/gluexdb/rcdb_2020_11_13.sqlite
 CCDB_SQLITE=/home/gluex2/gluexdb/ccdb_2020_11_13.sqlite
 
 #------------- CONFIG --------------------- 
-CONFIG=lamlambar.config  
+CONFIG=ksks.config  
 FLUX_FILE=/home/haoli/Physics_Analysis/flux_REST/ascii_files/flux_40856_42559.ascii
 E_MIN=5.8
 E_MAX=11.6
