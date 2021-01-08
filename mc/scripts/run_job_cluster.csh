@@ -7,11 +7,11 @@ echo "Working directory is in         " $WORKINGDIR
 echo "Output directory is in          " $OUTPUTDIR
 echo "script directory is in          " $LOCALDIR
 echo "config file is                  " ${LOCALDIR}/config/${CONFIG}
-echo "single sample size =                  " $SAMPLE_SIZE
+echo "single sample size =            " $TRIGGER
 
 # set up environment
 cd $WORKINGDIR
-wxho "source $ENV_FILE:"
+echo "source" $ENV_FILE ":"
 source $ENV_FILE
 scp $CCDB_SQLITE ./ccdb.sqlite
 scp $RCDB_SQLITE ./rcdb.sqlite
