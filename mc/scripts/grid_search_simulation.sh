@@ -3,8 +3,8 @@
 
 #------------- QCD cluster --------------------- 
 QUEUE=green
-TIMELIMIT=4:00:00
-THREADS=4
+TIMELIMIT=24:00:00
+THREADS=40
 
 if [ "$QUEUE" == "green" ]; then
   CPUMEM=1600 #max=1603 mb
@@ -17,31 +17,31 @@ echo "Memory to be allocated per job: " $MEM
 #------------- ENV --------------------- 
 echo "The local directory is: " $MC_LOCALDIR
 # set up paths to all simulation softwares
-ENV_FILE=/home/haoli/env/test3.csh
+ENV_FILE=/home/haoli/env/test.csh
 # light weight version of gluex database to be moved to cluster nodes to avoid internet bottleneck
-RCDB_SQLITE=/home/gluex2/gluexdb/rcdb_2021_04_12.sqlite 
-CCDB_SQLITE=/home/gluex2/gluexdb/ccdb_2021_04_12.sqlite
+RCDB_SQLITE=/home/gluex2/gluexdb/rcdb_2020_11_13.sqlite 
+CCDB_SQLITE=/home/gluex2/gluexdb/ccdb_2020_11_13.sqlite
 
 #------------- CONFIG --------------------- 
-CONFIG=ppbar.config 
+CONFIG=ksks.config  
 FLUX_FILE=/home/haoli/Physics_Analysis/flux_REST/ascii_files/flux_40856_42559.ascii
-#FLUX_FILE=/home/haoli/Physics_Analysis/flux_REST/ascii_files/flux_FALL18_lowE_51384_51457.ascii
 E_MIN=5.8
 E_MAX=11.6
-TRIGGER=100000
-START=0
-END=9
+TRIGGER=1000
+START=1
+END=2
 
 #------------- NAME & PATH --------------------- 
-DECAY=ppbarM6   # in /def folder the name of def file is generally formatted as mc_gen_gluex_$DECAY.def
-OUTPUTDIR=/raid2/haoli/test/ppbarM6_match0
-
-MC_LOCALDIR=/home/haoli/test/hao_gluex_physics_analysis/mc/scripts
+DECAY=ksksp_acceptance   
+OUTPUTDIR=/raid4/haoli/ksks/acceptance/test1
 
 
 
 
 #------------- JOB SUBMISSION --------------
+
+echo "Start batch job submission:"
+
 #make def for the jobs, replace keywords:
 mkdir -p $OUTPUTDIR/gen/def
 cd $OUTPUTDIR/gen/def
