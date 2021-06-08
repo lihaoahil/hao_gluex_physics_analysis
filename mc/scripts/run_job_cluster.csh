@@ -66,7 +66,7 @@ echo "--------------------------------------------" |& tee -a timer.txt
 cd $WORKINGDIR
 mc_gen input.def 
 cp *.ascii input.ascii
-GEN2HDDM_new -r031057 input.ascii 
+GEN2HDDM_new -r040856 input.ascii 
 echo "-----"
 ls -lahS
 
