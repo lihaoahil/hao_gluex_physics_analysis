@@ -30,11 +30,11 @@ E_MIN=5.8
 E_MAX=11.6
 TRIGGER=10000
 START=0
-END=10
+END=2
 
 #------------- NAME & PATH --------------------- 
 DECAY=sig0sig0bar   # in /def folder the name of def file is generally formatted as mc_gen_gluex_$DECAY.def
-OUTPUTDIR=/raid2/haoli/test/sig0sig0bar_test6
+OUTPUTDIR=/raid2/haoli/test/sig0sig0bar_test7
 MC_LOCALDIR=/home/haoli/test/hao_gluex_physics_analysis/mc/scripts
 MESSAGE="June_08_21: test for sigma0 MC with added antisigma0 default decay in halld_recon and 21_05_06.sqlite."
 
