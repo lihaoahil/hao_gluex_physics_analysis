@@ -1,5 +1,5 @@
 #!/bin/tcsh -f
-set WORKINGDIR=/scratch/PBS_$SLURM_JOBID
+set WORKINGDIR=/scratch/slurm_$SLURM_JOBID
 hostname
 #------------- Check Parameters --------------
 echo "The job is running with         " $THREADS" threads on "$QUEUE" queue"
